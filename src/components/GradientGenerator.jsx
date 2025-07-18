@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './GradientGenerator.css';
 import { FiRefreshCw, FiCopy, FiDownload } from 'react-icons/fi';
+import html2canvas from 'html2canvas';
 
 const predefinedColors = [
   '#ff7eb9', '#ff65a3', '#7afcff', '#feff9c', '#fff740', '#ffa8B6',
@@ -30,6 +31,35 @@ const GradientGenerator = () => {
     navigator.clipboard.writeText(cssCode);
     alert('CSS Copied!');
   };
+
+  const handleDownloadImage = async () => {
+  const element = document.querySelector('.preview');
+  const canvas = await html2canvas(element);
+  const link = document.createElement('a');
+  link.download = 'gradient-background.png';
+  link.href = canvas.toDataURL();
+  link.click();
+  };
+
+  const [presets, setPresets] = useState(
+  JSON.parse(localStorage.getItem('presets') || '[]')
+  );
+
+  const savePreset = () => {
+  const newPreset = { colors, type, angle, opacity, blendMode };
+  const updated = [...presets, newPreset];
+  setPresets(updated);
+  localStorage.setItem('presets', JSON.stringify(updated));
+  };
+
+  const applyPreset = (preset) => {
+  setColors(preset.colors);
+  setType(preset.type);
+  setAngle(preset.angle);
+  setOpacity(preset.opacity);
+  setBlendMode(preset.blendMode);
+  };
+
 
   return (
     <div className="generator-wrapper">
@@ -123,12 +153,27 @@ const GradientGenerator = () => {
           <div className="preview-controls">
             <button onClick={() => window.location.reload()}><FiRefreshCw /></button>
             <button onClick={copyToClipboard}><FiCopy /> Copy</button>
-            <button><FiDownload /></button>
+            <button onClick={handleDownloadImage}><FiDownload /> Download</button>
+            <button onClick={savePreset}>💾 Save Preset</button>
           </div>
           <textarea
             readOnly
             value={`background: ${type}-gradient(${type === 'linear' ? `${angle}deg` : ''}, ${colors.join(', ')});`}
           />
+          <div className="presets">
+          <h4>🎨 Saved Presets</h4>
+             <div className="preset-list">
+             {presets.map((p, index) => (
+              <button
+              key={index}
+              style={{
+                background: `${p.type}-gradient(${p.type === 'linear' ? `${p.angle}deg` : ''}, ${p.colors.join(', ')})`
+              }}
+              onClick={() => applyPreset(p)}
+            />
+          ))}
+           </div>
+        </div>
         </div>
       </div>
     </div>

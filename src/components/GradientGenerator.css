@@ -82,6 +82,8 @@
 .preview {
   width: 100%;
   margin-top: 10px;
+  animation: gradientMotion 8s ease infinite;
+  background-size: 300% 300%;
 }
 
 .preview-controls {
@@ -110,7 +112,42 @@ textarea {
   font-family: monospace;
 }
 
+.preview-controls button,
+.preset-list button {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.preset-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.preset-list button {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  outline: 2px solid #444;
+}
+
+
 @keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientMotion {
   0% {
     background-position: 0% 50%;
   }
