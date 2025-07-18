@@ -16,13 +16,24 @@ const GradientGenerator = () => {
   const [animation, setAnimation] = useState(false);
   const [blendMode, setBlendMode] = useState('normal');
 
+  const gradientString = () => {
+  if (type === 'linear') {
+    return `linear-gradient(${angle}deg, ${colors.join(', ')})`;
+  } else if (type === 'radial') {
+    return `radial-gradient(circle, ${colors.join(', ')})`;
+  } else if (type === 'conic') {
+    return `conic-gradient(from ${angle}deg, ${colors.join(', ')})`;
+  }
+};
+
   const gradientStyle = {
-    background: `${type}-gradient(${type === 'linear' ? `${angle}deg` : ''}, ${colors.join(', ')})`,
+    background: gradientString(),
     opacity: opacity,
     height: '250px',
     borderRadius: '20px',
     transition: '0.4s ease',
-    animation: animation ? 'gradientMove 5s ease infinite' : 'none',
+    animation: animation ? 'gradientMove 8s ease infinite' : 'none',
+    backgroundSize: animation ? '300% 300%' : '100% 100%',
     mixBlendMode: blendMode,
   };
 
@@ -106,7 +117,7 @@ const GradientGenerator = () => {
               ))}
             </div>
 
-            {type === 'linear' && (
+            {(type === 'linear' || type === 'conic') && (
               <>
                 <label>Angle: {angle}°</label>
                 <input
@@ -156,10 +167,12 @@ const GradientGenerator = () => {
             <button onClick={handleDownloadImage}><FiDownload /> Download</button>
             <button onClick={savePreset}>💾 Save Preset</button>
           </div>
-          <textarea
-            readOnly
-            value={`background: ${type}-gradient(${type === 'linear' ? `${angle}deg` : ''}, ${colors.join(', ')});`}
-          />
+
+         <textarea
+       readOnly
+      value={`background: ${gradientString()};`}
+        />
+
           <div className="presets">
           <h4>🎨 Saved Presets</h4>
              <div className="preset-list">
