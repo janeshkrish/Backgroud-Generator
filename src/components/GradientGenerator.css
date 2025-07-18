@@ -1,0 +1,123 @@
+.generator-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  color: white;
+}
+
+.header h2 {
+  margin-bottom: 0;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.color-picker {
+  margin-bottom: 20px;
+}
+
+.color-picker label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.swatches button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: 2px solid transparent;
+}
+
+.swatches button.active {
+  outline: 2px solid #ffffff;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controls input[type="range"],
+.controls select {
+  width: 100%;
+}
+
+.controls .tabs button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.controls .tabs button.active {
+  background: #6e5ee8;
+}
+
+.preview {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.preview-controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.preview-controls button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  background: #111;
+  color: #0f0;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: monospace;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
